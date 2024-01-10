@@ -1,12 +1,10 @@
 package com.example.stocks.stocksvisualiser.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.ToString;
+
 
 @AllArgsConstructor
 @Data
@@ -23,7 +21,7 @@ public class TickerResponse {
     @JsonProperty("n")
     private int numberOfTx;
     @JsonProperty("t")
-    private long startTime;
+    private Long startTime;
     @JsonProperty("v")
     private double volume;
     @JsonProperty("vw")

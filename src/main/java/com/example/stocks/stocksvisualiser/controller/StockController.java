@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -26,14 +27,17 @@ public class StockController {
 
     @GetMapping("/ticker")
     public ResponseEntity<List<TickerResponse>> getTicker(
-            @RequestBody TickerRequest tickerRequest
+            @RequestParam String symbol,
+            @RequestParam Timespan timespan,
+            @RequestParam LocalDate from,
+            @RequestParam LocalDate to
     ) {
         try {
 
-            return stockService.getTicker(tickerRequest.symbol(), tickerRequest.timespan(), tickerRequest.from(), tickerRequest.to());
+            return stockService.getTicker(symbol, timespan, from, to);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return stockService.getTicker(tickerRequest.symbol(), tickerRequest.timespan(), tickerRequest.from(), tickerRequest.to());
+            return stockService.getTicker(symbol, timespan, from, to);
 
         }
     }
