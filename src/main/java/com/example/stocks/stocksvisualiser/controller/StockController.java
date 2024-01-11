@@ -1,6 +1,6 @@
 package com.example.stocks.stocksvisualiser.controller;
 
-import com.example.stocks.stocksvisualiser.dto.request.TickerRequest;
+import com.example.stocks.stocksvisualiser.dto.response.AggregateResponse;
 import com.example.stocks.stocksvisualiser.dto.response.TickerResponse;
 import com.example.stocks.stocksvisualiser.enums.Timespan;
 import com.example.stocks.stocksvisualiser.service.impl.StockServiceImpl;
@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -19,31 +18,21 @@ public class StockController {
     @Autowired
     StockServiceImpl stockService;
 
-    @Value("${stockAPI.aggregates.baseUrl}")
-    String testing;
-
-    @Value("${stockAPI.apiKey}")
-    private String apiKey;
-
-    @GetMapping("/ticker")
-    public ResponseEntity<List<TickerResponse>> getTicker(
+    @GetMapping("/aggregate")
+    public ResponseEntity<List<AggregateResponse>> getAggregate(
             @RequestParam String symbol,
             @RequestParam Timespan timespan,
             @RequestParam LocalDate from,
             @RequestParam LocalDate to
     ) {
-        try {
-
-            return stockService.getTicker(symbol, timespan, from, to);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return stockService.getTicker(symbol, timespan, from, to);
-
-        }
+            return stockService.getAggregate(symbol, timespan, from, to);
     }
 
-    @GetMapping("/test")
-    public void test(@RequestParam String test) {
-        System.out.println(test);
+    @GetMapping("/ticker")
+    public ResponseEntity<List<TickerResponse>> getTicker(
+            @RequestParam String symbol
+    ) {
+        return stockService.getTicker(symbol);
     }
+
 }
